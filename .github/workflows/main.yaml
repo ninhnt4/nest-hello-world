@@ -1,7 +1,7 @@
 name: Test, Build, and Push to Google Cloud run
 
 on:
-  workflow_dispatch:
+  workflow_dispatch: #workflow_dispatch -> cái này là bấm bằng tay ở github
   push:
     branches:
       - "main"
@@ -9,29 +9,21 @@ on:
 
 jobs:
   build:
-    environment: DEV
+    #environment: DEV    #enviroment: DEV là trỏ đến cái env DEV trong github anh đã tạo ( mục đích là để lấy các biến env )
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v3 #cái này là để lấy code hiện tại của source
         
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
-
-      - name: Create Firebase JSON
+      - name: Build container image
         run: |
-          cat <<EOF > firebase.json
-          ${{ secrets.FIREBASE_JSON}}
-          EOF
+          docker build -f Dockerfile -t BuildTestHello .
 
-      - name: test json
-        run: cat ./firebase.json
-
-      - name: list
-        run: ls
 
 
 
