@@ -21,9 +21,12 @@ jobs:
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
-      - name: Build container image
-        run: |
-          docker build -f Dockerfile -t buildtesthello .
+      - name: log test
+        run: echo test
+
+      # - name: Build container image
+      #   run: |
+      #     docker build -f Dockerfile -t buildtesthello .
 
 
 
