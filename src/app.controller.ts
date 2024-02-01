@@ -9,5 +9,6 @@ export class AppController {
   getHello(): string {
     return this.appService.getHello();
   }
-  // test cicd 
+  // test cicd nếu không chạy thì kiểm tra lại file config
+  //
 }
