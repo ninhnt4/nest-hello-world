@@ -3,10 +3,15 @@ name: Test, Build, and Push to Google Cloud run
 on:
   workflow_dispatch: #workflow_dispatch -> cái này là bấm bằng tay ở github
   push:
+    path:
+      - '!README.md'
+      - '**.js'
     branches:
       - "main"
       - "master"
       - "develop"
+  pull_request:
+    branches: [main,master]
 
 jobs:
   build:
@@ -53,3 +58,21 @@ jobs:
 #          --region=${{ secrets.REGION }} \
 #          --project=${{ secrets.PROJECT_ID }} \
 #          --port=3000
+
+
+
+# send_message_to_skype:
+#     needs: build_deploy
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Export Variables
+#         id: EXPORT_VARIABLE
+#         shell: bash
+#         run: |
+#           echo "message: ${{github.event.head_commit.message}}"
+#           echo "BRANCH=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
+#           echo "CURRENT_DATE=$(TZ=Asia/Ho_Chi_Minh date +'%Y-%m-%d %H:%M:%S')" >> $GITHUB_OUTPUT
+#           if [ "${{ github.triggering_actor }}" == "skydark3004" ]; then echo "SKYPE_ID=live:.cid.34900d2be708c9d2" >> $GITHUB_OUTPUT
+#           else
+#           echo "SKYPE_ID=NOT_FOUND" >> $GITHUB_OUTPUT
+#           fi
