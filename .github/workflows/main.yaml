@@ -21,6 +21,11 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3 #cái này là để lấy code hiện tại của source để merge
+      - uses: mheap/github-action-required-labels@v5     #
+        with:
+          mode: exactly
+          count: 0
+          labels: "do not build"  
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
 
